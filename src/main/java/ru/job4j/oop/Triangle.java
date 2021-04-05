@@ -9,30 +9,30 @@ public class Triangle {
     private double bc;
 
     public Triangle(Point ap, Point bp, Point cp) {
-        this.a = ap;
-        this.b = bp;
-        this.c = cp;
+        a = ap;
+        b = bp;
+        c = cp;
 
-        this.ab = a.distance(b);
-        this.ac = a.distance(c);
-        this.bc = b.distance(c);
+        ab = a.distance(b);
+        ac = a.distance(c);
+        bc = b.distance(c);
     }
 
     public double perimeter() {
-        return this.ab + this.ac + this.bc;
+        return ab + ac + bc;
     }
 
 
     public boolean exist() {
-        return (this.ab + this.ac > this.bc) && (this.ab + this.bc > this.ac) && (this.ac + this.bc > this.ab);
+        return (ab + ac > bc) && (ab + bc > ac) && (ac + bc > ab);
     }
 
     public double area() {
         double result = -1;
 
-        if (this.exist()) {
-            double p = this.perimeter() / 2;
-            result = Math.sqrt(p * (p - this.ab) * (p - this.ac) * (p - this.bc));
+        if (exist()) {
+            double p = perimeter() / 2;
+            result = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
         }
         return result;
     }
