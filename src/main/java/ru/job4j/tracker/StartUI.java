@@ -19,7 +19,7 @@ public class StartUI {
         return switch (menuItem) {
             case 0 -> StartUI::add;
             case 1 -> StartUI::showAll;
-            case 2 -> StartUI::edit;
+            case 2 -> StartUI::replace;
             case 3 -> StartUI::delete;
             case 4 -> StartUI::getById;
             case 5 -> StartUI::findByName;
@@ -58,7 +58,7 @@ public class StartUI {
         }
     }
 
-    public static void edit(Input input, Tracker tracker) {
+    public static void replace(Input input, Tracker tracker) {
         int id = input.askInt("=== Edit item ====" + System.lineSeparator() + "Enter id: ");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
