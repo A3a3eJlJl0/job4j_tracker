@@ -1,45 +1,48 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Tracker {
-    private final Item[] items = new Item[100];
+    private final List<Item> items = new ArrayList<>();
     private int ids = 1;
-    private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
-        items[size++] = item;
+        items.add(item);
         return item;
     }
 
     public Item findById(int id) {
         int index = indexOf(id);
-        return index == -1 ? null : items[index];
+        return index == -1 ? null : items.get(index);
     }
 
-    public Item[] findByName(String key) {
+    public List<Item> findByName(String key) {
         int counter = 0;
-        Item[] result = new Item[size];
+        List<Item> result = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            if (items[i].getName().equals(key)) {
-                result[counter++] = items[i];
+        for (Item item: items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, counter);
+        return result;
     }
 
-    public Item[] findAll() {
-        return Arrays.copyOf(items, size);
+    public List<Item> findAll() {
+        return items;
     }
 
     public boolean replace(int id, Item item) {
+        ArrayList<Item> tst;
+
         int index = indexOf(id);
         boolean found = index != -1;
         if (found) {
             item.setId(id);
-            items[index] = item;
+            items.set(index, item);
         }
         return found;
     }
@@ -48,17 +51,15 @@ public class Tracker {
         int index = indexOf(id);
         boolean found = index != -1;
         if (found) {
-            System.arraycopy(items, index + 1, items, index, size - index - 1);
-            items[size - 1] = null;
-            size--;
+            items.remove(index);
         }
         return found;
     }
 
     private int indexOf(int id) {
-        for (int i = 0; i < size; i++) {
-            if (items[i].getId() == id) {
-                return i;
+        for (Item item: items) {
+            if (item.getId() == id) {
+                return items.indexOf(item);
             }
         }
         return -1;
